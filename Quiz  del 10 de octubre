@@ -1,0 +1,102 @@
+# punto 1
+use tiendaMascotas;
+
+alter table vacuna 
+add column fechaVigencia date;
+
+update vacuna set fechaVigencia = '2024-01-01' where idVacuna = 1;
+update vacuna set fechaVigencia = '2026-10-02' where idVacuna = 2;
+update vacuna set fechaVigencia = '2023-12-03' where idVacuna = 3;
+update vacuna set fechaVigencia = '2030-02-15' where idVacuna = 4;
+update vacuna set fechaVigencia = '2040-04-12' where idVacuna = 5;
+
+describe mascota;
+
+# punto 2: 
+función para consultar cliente según mascota
+delimiter $$
+
+create function infoClienteMascota(nombreMascota varchar(50))
+returns varchar(300)
+deterministic
+begin
+    declare textoResultado varchar(300);
+
+    select group_concat(
+        concat('Mascota: ', m.nombreMascota, 
+               ', raza: ', m.razaMascota, 
+               ', dueño: ', c.nombreCliente)
+        separator '; '
+    )
+    into textoResultado
+    from mascota m
+    inner join cliente c on m.cedulaClienteFK = c.cedulaCliente
+    where m.nombreMascota = nombreMascota;
+
+    return textoResultado;
+end $$
+
+delimiter ;
+
+alter table cliente add column fechaModificacion datetime;
+
+select * from mascota;
+select infoClienteMascota('Pedro');
+
+create table clienteEliminado (
+    nombreCliente varchar(50),
+    fechaEliminacion timestamp
+);
+
+# punto 3 y 4: 
+trigger de eliminación de cliente
+delimiter $$
+
+create trigger trgEliminarCliente
+before delete on cliente
+for each row
+begin
+    declare totalMascotas int;
+
+    select count(*) into totalMascotas
+    from mascota
+    where cedulaClienteFK = old.cedulaCliente;
+
+    if totalMascotas = 0 then
+        insert into clienteEliminado(nombreCliente, fechaEliminacion)
+        values (old.nombreCliente, current_timestamp());
+    else
+        signal sqlstate '45000'
+        set message_text = 'no se puede eliminar: el cliente tiene mascotas registradas.';
+    end if;
+end $$
+
+delimiter ;
+
+insert into cliente 
+values (329148, 11111311, 'Pepito', 'Papita', 'XXXX', 'aZZZZ', 3, '');
+
+select * from cliente;
+
+delete from cliente where cedulaCliente = '32910848';
+
+select * from clienteEliminado;
+
+# punto 5: 
+trigger de actualización
+delimiter $$
+
+create trigger trgActualizarCliente
+before update on cliente
+for each row
+begin
+    set new.fechaModificacion = current_timestamp();
+end $$
+
+delimiter ;
+
+update cliente 
+set nombreCliente = 'Pepito' 
+where cedulaCliente = 1127941351;
+
+select * from cliente;
