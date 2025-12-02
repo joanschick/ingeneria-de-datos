@@ -1,0 +1,423 @@
+//------------------1----2----3--------------------
+db.band.insertOne({
+  name: "Alcolirykoz",
+  country: "Colombia",
+  albums: [
+    {
+      title: "Servicios Ambulatorioz",
+      dateCreated: new Date("2011-06-20T05:00:00.000Z"),
+      songs: [
+        { songName: "La Típica", duration: "3:45" },
+        { songName: "N.A.D.A", duration: "4:02" },
+        { songName: "La Cosecha", duration: "3:59" },
+        { songName: "Tararea", duration: "3:41" },
+        { songName: "En el Aire", duration: "4:38" }
+      ]
+    },
+    {
+      title: "Efectos Secundarios",
+      dateCreated: new Date("2014-11-10T05:00:00.000Z"),
+      songs: [
+        { songName: "La Cinta Rosa", duration: "3:52" },
+        { songName: "Camino Solo", duration: "4:13" },
+        { songName: "El Despedazado", duration: "3:44" },
+        { songName: "Pambelé", duration: "4:05" },
+        { songName: "Himmelfahrt", duration: "3:57" }
+      ]
+    }
+  ]
+}
+)
+db.band.insertOne({
+  name: "Binomio de Oro",
+  country: "Colombia",
+  albums: [
+    {
+      title: "De Caché",
+      dateCreated: new Date("1994-01-10T05:00:00.000Z"),
+      songs: [
+        { songName: "Me Ilusioné", duration: "4:10" },
+        { songName: "María", duration: "4:00" },
+        { songName: "Olvídala", duration: "4:30" },
+        { songName: "No Puedo Negar", duration: "3:55" },
+        { songName: "Me Sobran las Palabras", duration: "3:48" }
+      ]
+    },
+    {
+      title: "Fuera de Serie",
+      dateCreated: new Date("1995-05-12T05:00:00.000Z"),
+      songs: [
+        { songName: "Solo por Ti", duration: "4:22" },
+        { songName: "Relicario de Besos", duration: "4:18" },
+        { songName: "Amor de Locos", duration: "4:45" },
+        { songName: "Como Te Olvido", duration: "3:52" },
+        { songName: "La Rostro Linda", duration: "4:01" }
+      ]
+    }
+  ]
+}
+)
+db.band.insertOne({
+  name: "Tego Calderón",
+  country: "Puerto Rico",
+  albums: [
+    {
+      title: "El Abayarde",
+      dateCreated: new Date("2002-12-01T05:00:00.000Z"),
+      songs: [
+        { songName: "Pa' Que Retozen", duration: "3:34" },
+        { songName: "Al Natural", duration: "3:40" },
+        { songName: "Planté Bandera", duration: "4:23" },
+        { songName: "Cosa Buena", duration: "3:45" },
+        { songName: "Tu Pai", duration: "3:18" }
+      ]
+    },
+    {
+      title: "El Que Sabe, Sabe",
+      dateCreated: new Date("2015-02-01T05:00:00.000Z"),
+      songs: [
+        { songName: "Dando Break", duration: "3:30" },
+        { songName: "Nadie Me Tumba", duration: "3:54" },
+        { songName: "Ronca", duration: "4:01" },
+        { songName: "Por Burro", duration: "3:55" },
+        { songName: "Yo Soy el Mejor", duration: "4:20" }
+      ]
+    }
+  ]
+}
+)
+db.band.insertOne({
+  name: "The Notorious B.I.G.",
+  country: "United States",
+  albums: [
+    {
+      title: "Ready to Die",
+      dateCreated: new Date("1994-09-13T05:00:00.000Z"),
+      songs: [
+        { songName: "Juicy", duration: "5:02" },
+        { songName: "Big Poppa", duration: "4:13" },
+        { songName: "Gimme the Loot", duration: "4:00" },
+        { songName: "Warning", duration: "3:41" },
+        { songName: "Machine Gun Funk", duration: "4:16" }
+      ]
+    },
+    {
+      title: "Life After Death",
+      dateCreated: new Date("1997-03-25T05:00:00.000Z"),
+      songs: [
+        { songName: "Hypnotize", duration: "3:49" },
+        { songName: "Notorious Thugs", duration: "6:07" },
+        { songName: "Mo Money Mo Problems", duration: "4:17" },
+        { songName: "Kick in the Door", duration: "4:46" },
+        { songName: "I Love the Dough", duration: "5:03" }
+      ]
+    }
+  ]
+}
+)
+db.band.insertOne({
+  name: "Rodolfo Aicardi",
+  country: "Colombia",
+  albums: [
+    {
+      title: "Canta para el Mundo",
+      dateCreated: new Date("1986-03-20T05:00:00.000Z"),
+      songs: [
+        { songName: "Tabaco y Ron", duration: "3:25" },
+        { songName: "Adonay", duration: "3:40" },
+        { songName: "La Colegiala", duration: "3:18" },
+        { songName: "Una Lágrima", duration: "3:50" },
+        { songName: "Fantasía Nocturna", duration: "3:29" }
+      ]
+    },
+    {
+      title: "Grandes Éxitos",
+      dateCreated: new Date("1990-01-10T05:00:00.000Z"),
+      songs: [
+        { songName: "Boquita de Caramelo", duration: "3:45" },
+        { songName: "El Africano", duration: "4:00" },
+        { songName: "El Campanero", duration: "3:55" },
+        { songName: "La Dama de las Camelias", duration: "4:10" },
+        { songName: "La Gata Golosa", duration: "3:33" }
+      ]
+    }
+  ]
+}
+)
+
+db.band.find().pretty()
+
+db.band.find({name: "Tego Calderón"}).pretty()
+//-------------------4---------------------
+db.band.find()
+
+//-------------------5---------------------
+
+db.band.updateOne(
+  { name: "Binomio de Oro" },
+  { $unset: { "albums.0.dateCreated": "" } }
+)
+
+db.band.find({name: "Tego Calderón"}).pretty()
+//-------------------6---------------------
+
+db.band.updateOne(
+  {name: "Tego Calderón"}, 
+  {$unset: {"albums.1.songs": ""}}
+)
+
+db.band.find({name: "Tego Calderón"}).pretty()
+
+
+
+//----------------------------------------------------------------
+// ---------------------EJERCICIOS DE PRÁCTICA--------------------
+//----------------------------------------------------------------
+
+// 1.
+db.band.aggregate([
+  {
+    $project: {
+      name: 1,
+      albumsCount: { $size: "$albums" }
+    }
+  },
+  {
+    $group: {
+      _id: "$name",
+      cantidadAlbums: { $sum: "$albumsCount" }
+    }
+  },
+  {
+    $sort: { cantidadAlbums: 1 }
+  }
+])
+
+// 2. 
+db.band.aggregate([
+  { $unwind: "$albums" },
+  { $unwind: "$albums.songs" },
+  {
+    $group: {
+      _id: "$name",
+      cantidadCanciones: { $sum: 1 }
+    }
+  },
+  {
+    $sort: { _id: 1 }
+  }
+])
+
+// 3
+db.band.aggregate([
+  {
+    $project: {
+      name: 1,
+      albums: {
+        $map: {
+          input: "$albums",
+          as: "album",
+          in: {
+            title: "$$album.title",
+            songCount: { $size: "$$album.songs" }
+          }
+        }
+      }
+    }
+  },
+  { $unwind: "$albums" },
+  {
+    $group: {
+      _id: "$name",
+      promedioCancionesPorAlbum: { $avg: "$albums.songCount" }
+    }
+  },
+  { $sort: { _id: 1 } }
+])
+
+// 
+db.band.aggregate([
+  {
+    $match: {
+      country: "Colombia"
+    }
+  },
+  {
+    $project: {
+      name: 1,
+      country: 1,
+      albums: 1
+    }
+  }
+])
+
+//----------------------------------------------------------------
+// --------------------- RETO DE APLICACIÓN --------------------
+//----------------------------------------------------------------
+
+// 1. 
+db.band.aggregate([
+  { $unwind: "$albums" },
+  { $unwind: "$albums.songs" },
+  {
+    $addFields: {
+      minutos: {
+        $add: [
+          { $toDouble: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 0] } },
+          { $divide: [{ $toDouble: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 1] } }, 60] }
+        ]
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$name",
+      totalCanciones: { $sum: 1 },
+      totalMinutos: { $sum: "$minutos" }
+    }
+  }
+])
+
+
+
+// 3. Obtener el promedio de canciones por álbum, solo si es mayor a 4 canciones
+print("\n=== Reto 3: Promedio > 4 canciones por álbum ===")
+db.band.aggregate([
+  { $unwind: "$albums" },
+  {
+    $addFields: {
+      songsCount: { $size: "$albums.songs" }
+    }
+  },
+  {
+    $group: {
+      _id: "$name",
+      promedioCanciones: { $avg: "$songsCount" }
+    }
+  },
+  {
+    $match: {
+      promedioCanciones: { $gt: 4 }
+    }
+  }
+])
+
+// 4. 
+db.band.aggregate([
+  { $unwind: "$albums" },
+  {
+    $addFields: {
+      year: { $year: "$albums.dateCreated" }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        banda: "$name",
+        año: "$year"
+      },
+      totalAlbums: { $sum: 1 }
+    }
+  },
+  { $sort: { "_id.año": 1 } }
+])
+
+// 5. Ver por cada banda los títulos de álbumes (usar $addToSet)
+print("\n=== Reto 5: Títulos de álbumes únicos por banda ===")
+db.band.aggregate([
+  { $unwind: "$albums" },
+  {
+    $group: {
+      _id: "$name",
+      albumes: { $addToSet: "$albums.title" }
+    }
+  }
+])
+
+// 6. Determinar cuántas bandas hay por país
+print("\n=== Reto 6: Bandas por país ===")
+db.band.aggregate([
+  {
+    $group: {
+      _id: "$country",
+      cantidadBandas: { $sum: 1 }
+    }
+  }
+])
+
+
+// ==================== TRES AGREGACIONES ADICIONALES ====================
+
+// a. Obtener la canción más larga por banda (en segundos)
+print("\n=== Agregación Extra 1: Canción más larga por banda ===")
+db.band.aggregate([
+  { $unwind: "$albums" },
+  { $unwind: "$albums.songs" },
+  {
+    $addFields: {
+      duracionSegundos: {
+        $add: [
+          { $multiply: [{ $toInt: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 0] } }, 60] },
+          { $toInt: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 1] } }
+        ]
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$name",
+      cancionMasLargaSegundos: { $max: "$duracionSegundos" }
+    }
+  }
+])
+
+// b. Obtener bandas con más de un álbum
+print("\n=== Agregación Extra 2: Bandas con más de un álbum ===")
+db.band.aggregate([
+  {
+    $project: {
+      name: 1,
+      albumsCount: { $size: "$albums" }
+    }
+  },
+  {
+    $match: {
+      albumsCount: { $gt: 1 }
+    }
+  }
+])
+
+// c. Contar total de canciones en la colección
+print("\n=== Agregación Extra 3: Total de canciones en la colección ===")
+db.band.aggregate([
+  { $unwind: "$albums" },
+  { $unwind: "$albums.songs" },
+  {
+    $group: {
+      _id: null,
+      totalCanciones: { $sum: 1 }
+    }
+  }
+])
+
+// d. Bonus: Mostrar todas las canciones de Colombia con su duración en segundos
+print("\n=== Agregación Extra 4: Canciones de Colombia con duración ===")
+db.band.aggregate([
+  { $match: { country: "Colombia" } },
+  { $unwind: "$albums" },
+  { $unwind: "$albums.songs" },
+  {
+    $project: {
+      _id: 0,
+      banda: "$name",
+      cancion: "$albums.songs.songName",
+      duracionOriginal: "$albums.songs.duration",
+      duracionSegundos: {
+        $add: [
+          { $multiply: [{ $toInt: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 0] } }, 60] },
+          { $toInt: { $arrayElemAt: [{ $split: ["$albums.songs.duration", ":"] }, 1] } }
+        ]
+      }
+    }
+  }
+])
